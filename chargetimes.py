@@ -18,6 +18,13 @@ def chargetime(s = .01):
 
     return ct
 
+def chargetimeResistor(s=.1)
+    G.setup(12, G.OUT)
+    G.output(12, G.LOW)
+    sleep(s)
+    G.setup(12, G.IN)
+    return G.input(12)
+
 def chargetimes(n = 100, s = .1):
     return [chargetime(s) for i in range(n)]
 
@@ -36,8 +43,14 @@ def printGT(l):
 def isOn(value):
     return value < 10
 
+def isOnResistor(value):
+    return value == 1
+
 def getLed(s = .1):
     return isOn(chargetime(s))
+
+def getLedResistor(s = .1):
+    return isOnResistor(chargetimeResistor(s))
 
 def led2seq():
     li = chargetimes(500, 0.02)
