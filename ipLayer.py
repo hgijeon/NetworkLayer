@@ -8,7 +8,7 @@ class IpLayer:
         srcIp, srcPort = srcAddr
         dstIp, dstPort = dstAddr
 
-        header = str(srcIP) + str(srcPort) # TODO
+        header = str(dstIP) + str(srcIp) + str(dstPort) + str(srcPort)
 
         self.datalinkLayer.transfer(header + data)
 
@@ -16,8 +16,12 @@ class IpLayer:
         while True:
             ret = self.datalinkLayer.receive()
             if ret != None:
-                srcIp = ret[0:5]
-                #TODO fix
-                data = ret[:]
-                return ((srcIp), data)
-        
+                srcIp = ret[1]
+		srcPort = ret[3]
+		dstIp = ret[0]
+		dstPort = ret[2]
+
+                data = ret[4:]
+                return ((srcIp,srcPort),data)
+        #Do we need a test to see if the destination is in the ip_directory?
+	
