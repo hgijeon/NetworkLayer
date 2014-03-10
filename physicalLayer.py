@@ -26,7 +26,11 @@ class PhysicalLayer:
     def receive(self):
         on = chargetimes.getLed(receiveRate)
         return self.addOne(on)
-            
+
+    def receiveResistor(self):
+        on = chargetimes.getLedResistor(receiveRate)
+        return self.addOne(on)
+ 
     def addOne(self, on):
         
         tup = self.noiseFilter.add(on)
