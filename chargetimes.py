@@ -18,7 +18,7 @@ def chargetime(s = .01):
 
     return ct
 
-def chargetimeResistor(s=.1)
+def chargetimeResistor(s=.1):
     G.setup(12, G.OUT)
     G.output(12, G.LOW)
     sleep(s)
