@@ -55,7 +55,7 @@ class PhysicalLayer:
                     self.log.append(self.bitMessage)
                     self.bitMessage=[]
                     self.idle = True
-                    return morse.morse2an(morse.bitData2morse(self.bitMessage))
+                    return morse.morse2an(morse.bitData2morse(self.log[-1]))
 
                     
     def analysis(self, tup):
