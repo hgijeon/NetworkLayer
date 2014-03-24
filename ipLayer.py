@@ -9,7 +9,10 @@ class IpLayer:
         dstIp, dstPort = dstAddr
 
         header = str(dstIP) + str(srcIp) + str(dstPort) + str(srcPort)
-
+        #LAN Transmission
+        #startcode + MAC Header (determined by team) + IP Header + UDP Packet + endcode
+        #new IP header needs destination IP address + Source IP + protocol code + length of payload
+        #UDP needs destinationport + sourceport +   msg
         self.datalinkLayer.transfer(header + data)
 
     def receive(self):
@@ -23,5 +26,4 @@ class IpLayer:
 
                 data = ret[4:]
                 return ((srcIp,srcPort),data)
-        #Do we need a test to see if the destination is in the ip_directory?
-	
+    
