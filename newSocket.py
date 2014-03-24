@@ -28,8 +28,9 @@ class ttsock:
         if ip[2]==to_ip[2]:
             self.IpLayer.transfer(self.myaddress,address,msg)
         else:
-            address[0]='192.168.100.',to_ip[2]
-            self.IpLayer.transfer(self.myaddress,address,msg)
+            self.Router.reroute_msg(self.address,address,msg)
+            #address[0]='192.168.100.',to_ip[2]
+            #self.IpLayer.transfer(self.myaddress,address,msg)
 
 	#self.toipaddress = address[0]
         #self.toport = address[1]
