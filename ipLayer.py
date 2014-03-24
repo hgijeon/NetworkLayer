@@ -19,11 +19,12 @@ class IpLayer:
         while True:
             ret = self.datalinkLayer.receive()
             if ret != None:
-                srcIp = ret[1]
-		srcPort = ret[3]
-		dstIp = ret[0]
-		dstPort = ret[2]
+                dstIp = ret[0]+ret[1]
+                srcIp  = ret[2]+ret[3]
+		dstPort = ret[7]
+		srcPort = ret[8]
 
-                data = ret[4:]
+		#numbering based off of CompNet StandardIPUDP pdf with the bases and whatnot
+                data = ret[9:]
                 return ((srcIp,srcPort),data)
     
