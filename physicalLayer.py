@@ -26,7 +26,11 @@ class PhysicalLayer:
     def receive(self):
         on = chargetimes.getLed(receiveRate)
         return self.addOne(on)
-            
+
+    def receiveResistor(self):
+        on = chargetimes.getLedResistor(receiveRate)
+        return self.addOne(on)
+ 
     def addOne(self, on):
         
         tup = self.noiseFilter.add(on)
@@ -45,12 +49,14 @@ class PhysicalLayer:
                 if self.stopChecker.isStop(self.bitMessage):
                     self.stopChecker.removeStopSeq(self.bitMessage)
                     print("stop!!")
-                    print(self.bitMessage)
-                    print(morse.bitData2morse(self.bitMessage))
-                    print("Received Message: "+morse.morse2an(morse.bitData2morse(self.bitMessage)))
+                    #print(self.bitMessage)
+                    #print(morse.bitData2morse(self.bitMessage))
+                    #print("Received Message: "+morse.morse2an(morse.bitData2morse(self.bitMessage)))
                     self.log.append(self.bitMessage)
                     self.bitMessage=[]
                     self.idle = True
+                    return morse.morse2an(morse.bitData2morse(self.log[-1]))
+
                     
     def analysis(self, tup):
         return [tup[0], int(0.5 + tup[1]/self.noiseFilter.dotTime)]
