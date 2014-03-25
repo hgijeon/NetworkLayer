@@ -2,10 +2,18 @@ import physicalLayer
 
 class DatalinkLayer:
     def __init__(self):
-        self.physicalLayer = physicalLayer.PhysicalLayer()
+        self.lowerLayer = physicalLayer.PhysicalLayer()
 
     def transfer(self, data):
-        self.physicalLayer.transfer(data)
+        self.lowerLayer.transfer(data)
 
     def receive(self):
-        return self.physicalLayer.receive()
+        while True:
+            ret = self.lowerLayer.receive()
+            if ret != None:
+                print("datalinkLayer got: "+ret)
+                if ret[:2] == self.macAddr
+                    return ret
+
+    def setMacAddr(self, macAddr):
+        self.macAddr = macAddr
