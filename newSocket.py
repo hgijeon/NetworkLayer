@@ -49,14 +49,17 @@ class ttsock:
             ip_dstAddr = ip_packet[0:2]
             ip_srcAddr = ip_packet[2:4]
             ip_protocolCode = ip_packet[4]
+            print("dstIP: "+ip_dstAddr+"\tsrcIP: "+ip_srcAddr+"\tprotocol: "+ip_protocolCode)
             
             if(ip_dstAddr == self.myipaddress) and (ip_protocolCode == self.ip_protocolCode):
                 udp_packet = ip_packet[7:]
 
                 udp_dstPort = udp_packet[0]
                 udp_srcPort = udp_packet[1]
+                print("dstPort: "+udp_dstPort+"\tsrcPort: "+udp_srcPort)
 
                 if udp_dstPort == self.myport:
                     msg = udp_packet[2:]
+                    print("msg: "+msg)
                     
                     return (msg, (ip_srcAddr, udp_srcPort))
