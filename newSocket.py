@@ -35,7 +35,7 @@ class ttsock:
         udp_header = address[1] + self.myport
         udp_packet = udp_header + msg
         
-        ip_header = address[0] + self.myipaddress + ip_protocolCode + tobase36str(len(udp_packet))
+        ip_header = address[0] + self.myipaddress + self.ip_protocolCode + tobase36str(len(udp_packet))
         ip_packet = ip_header + udp_packet
         
         self.lowerLayer.transfer(ip_packet)
@@ -46,9 +46,9 @@ class ttsock:
         while True:
             ip_packet = self.lowerLayer.receive()
             
-            ip_dstAddr = packet[0:2]
-            ip_srcAddr = packet[2:4]
-            ip_protocolCode = packet[4]
+            ip_dstAddr = ip_packet[0:2]
+            ip_srcAddr = ip_packet[2:4]
+            ip_protocolCode = ip_packet[4]
             
             if(ip_dstAddr == self.myipaddress) and (ip_protocolCode == self.ip_protocolCode):
                 udp_packet = ip_packet[7:]

@@ -9,7 +9,7 @@ class IpLayer:
         
 
     def receive(self):
-        self.lowerLayer.receive()
+        return self.lowerLayer.receive()
 
     def setMacAddr(self, macAddr):
         self.lowerLayer.setMacAddr(macAddr)
