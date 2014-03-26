@@ -18,7 +18,7 @@ class ttsock:
             print("nope = address and type do not match")
     
     def bind(self,address):
-	self.myaddress = address
+        self.myaddress = address
         self.myipaddress = address[0]
         self.myport  = address[1]
         print("ip: "+self.myipaddress+"\tport: "+self.myport)
@@ -54,4 +54,4 @@ class ttsock:
                 if udp_dstPort == self.myport:
                     msg = udp_packet[2:]
                     
-                    return (msg, (ip_srcAddr, udp_srcPort)
+                    return (msg, (ip_srcAddr, udp_srcPort))

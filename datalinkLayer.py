@@ -2,6 +2,7 @@ import physicalLayer
 
 class DatalinkLayer:
     def __init__(self):
+        self.macAddr = ""
         self.lowerLayer = physicalLayer.PhysicalLayer()
 
     def transfer(self, data):
