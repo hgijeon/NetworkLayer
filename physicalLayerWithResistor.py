@@ -27,7 +27,7 @@ class PhysicalLayer:
         on = chargetimes.getLed(receiveRate)
         return self.addOne(on)
 
-     def receiveResistor(self):
+    def receiveResistor(self):
         on = chargetimes.getLedResistor(receiveRate)
         return self.addOne(on)
 
