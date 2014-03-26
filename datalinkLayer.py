@@ -17,3 +17,4 @@ class DatalinkLayer:
 
     def setMacAddr(self, macAddr):
         self.macAddr = macAddr
+        print("MACaddr: "+self.macAddr)
