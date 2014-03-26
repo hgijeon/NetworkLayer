@@ -54,7 +54,4 @@ class ttsock:
                 if udp_dstPort == self.myport:
                     msg = udp_packet[2:]
                     
-                    return (msg, (ip_srcAddr, udp_srcPort) 
-
-
-        #function to route from "router socket" to CN Socket {pass in all ip stuff as a message as the argString
+                    return (msg, (ip_srcAddr, udp_srcPort)
