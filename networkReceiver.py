@@ -1,4 +1,4 @@
-import physicalLayerWithResistor as physicalLayer
+import physicalLayer
 
 pl = physicalLayer.PhysicalLayer()
 

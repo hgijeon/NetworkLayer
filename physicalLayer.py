@@ -6,8 +6,8 @@ from time import sleep
 startSeq = '-.-.-'
 stopSeq = '.-.-.'
 
-sendRate = 0.08
-receiveRate = 0.01
+sendRate = 0.2
+receiveRate = 0.03
 
 
 class PhysicalLayer:
@@ -30,7 +30,7 @@ class PhysicalLayer:
     def receiveResistor(self):
         on = chargetimes.getLedResistor(receiveRate)
         return self.addOne(on)
- 
+
     def addOne(self, on):
         
         tup = self.noiseFilter.add(on)
