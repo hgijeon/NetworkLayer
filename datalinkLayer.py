@@ -9,7 +9,7 @@ class DatalinkLayer:
 
     def receive(self):
         while True:
-            ret = self.lowerLayer.receive()
+            ret = self.lowerLayer.receiveResistor()
             if ret != None:
                 print("datalinkLayer got: "+ret)
                 if ret[:2] == self.macAddr
