@@ -13,7 +13,7 @@ class DatalinkLayer:
             ret = self.lowerLayer.receiveResistor()
             if ret != None:
                 print("datalinkLayer got: "+ret)
-                if ret[:2] == self.macAddr
+                if ret[:2] == self.macAddr:
                     return ret
 
     def setMacAddr(self, macAddr):

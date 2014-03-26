@@ -8,6 +8,11 @@ def tobase36str(n):
     
 
 class ttsock:
+    def __enter__(self):
+        return self
+    def __exit__(self, type, value, tb):
+        pass
+        
     def __init__(self,family,type):
         #CHECK FOR
         if(family == AF_INET) and (type == SOCK_DGRAM):
