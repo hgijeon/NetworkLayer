@@ -58,6 +58,3 @@ class ttsock:
 
 
         #function to route from "router socket" to CN Socket {pass in all ip stuff as a message as the argString
-
-    
-#this is essentially the echo router (team socket as opposed to the interLANs socket)
