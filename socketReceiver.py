@@ -4,4 +4,4 @@ socket, AF_INET, SOCK_DGRAM = newSocket.ttsock, newSocket.AF_INET, newSocket.SOC
 with socket(AF_INET, SOCK_DGRAM) as sock:
     sock.bind(("TA","A"))
 
-    print(sock.recvfrom())
+    print(sock.recvfrom(1024))
