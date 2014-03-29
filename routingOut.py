@@ -20,15 +20,14 @@ with socket(AF_INET, SOCK_DGRAM) as sock:
     sock.bind(routerDict["T"])
     
     while True:
-        try:
-            ret=None
-            while ret==None:
-                ret = lowerLayer.receive()
-                
-            print("router got: "+ret)
-            dstIP = ret[0]
-            if dstIP != lanIP:
-                targetRouter = routerDict[dstIP]
-                print("sending to router "+dstIP+": "+targetRouter)
-                sock.sendto(bytearray(ret,encoding="UTF-8"), targetRouter)
+        ret=None
+        while ret==None:
+            ret = lowerLayer.receive()
+            
+        print("router got: "+ret)
+        dstIP = ret[0]
+        if dstIP != lanIP:
+            targetRouter = routerDict[dstIP]
+            print("sending to router "+dstIP+": "+targetRouter)
+            sock.sendto(bytearray(ret,encoding="UTF-8"), targetRouter)
 
