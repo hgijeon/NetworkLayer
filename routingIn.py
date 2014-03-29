@@ -17,19 +17,18 @@ lowerLayer = physicalLayer.PhysicalLayer()
 socket, AF_INET, SOCK_DGRAM, timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
 
 with socket(AF_INET, SOCK_DGRAM) as sock:
-    sock.bind(routerDict["T"])
-    sock.settimeout(2.0) # 2 second timeout
+    sock.bind(("127.0.0.1", routerDict["T"][1]))
 
     while True:
         try:
             ret, address = sock.recvfrom(1024)
-                
+            ret = ret.decode("UTF-8")                
+
             print("router got: "+str(ret))
             dstIP = ret[0]
             if dstIP == lanIP:
                 print("sending to inside...")
                 lowerLayer.transfer(ret)
-
         except timeout:
-            print (".",end="",flush=True)
+            print (".",end="")
             continue

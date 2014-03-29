@@ -65,9 +65,12 @@ class socket:
         return
     
     def sendto(self,msg,address):
+        if isinstance(msg, bytearray):
+            msg=msg.decode("UTF-8")
+
         address = (ipDict[address[0]], portDict[address[1]])
         udp_header = address[1] + self.myport
-        udp_packet = udp_header + msg.decode("UTF-8")
+        udp_packet = udp_header + msg
         
         ip_header = address[0] + self.myipaddress + self.ip_protocolCode + tobase36str(len(udp_packet))
         ip_packet = ip_header + udp_packet

@@ -17,7 +17,6 @@ lowerLayer = physicalLayer.PhysicalLayer()
 socket, AF_INET, SOCK_DGRAM, timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
 
 with socket(AF_INET, SOCK_DGRAM) as sock:
-    sock.bind(routerDict["T"])
     
     while True:
         ret=None
@@ -28,6 +27,6 @@ with socket(AF_INET, SOCK_DGRAM) as sock:
         dstIP = ret[0]
         if dstIP != lanIP:
             targetRouter = routerDict[dstIP]
-            print("sending to router "+dstIP+": "+targetRouter)
+            print("sending to router "+dstIP+": "+str(targetRouter))
             sock.sendto(bytearray(ret,encoding="UTF-8"), targetRouter)
 
