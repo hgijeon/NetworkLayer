@@ -6,9 +6,15 @@ from time import sleep
 startSeq = '-.-.-'
 stopSeq = '.-.-.'
 
+<<<<<<< HEAD
 sendRate = 0.1
 #receiveRate = 0.01
 receiveRate = 0.001
+=======
+sendRate = 0.01
+receiveRate = 0.001
+
+>>>>>>> 7fc591b7e037dfcfb704259e363b67b48e4cd916
 
 class PhysicalLayer:
     def __init__(self):
