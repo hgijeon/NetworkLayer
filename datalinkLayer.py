@@ -16,7 +16,7 @@ class DatalinkLayer:
             with timeAlarm.Timeout(self.timeLimit):
                 try:
                     while True:
-                        ret = self.lowerLayer.receive()
+                        ret = self.lowerLayer.receiveResistor()
                         if ret != None:
                             print("datalinkLayer got: "+ret)
                             if ret[1] == self.macAddr:
