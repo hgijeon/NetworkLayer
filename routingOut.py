@@ -21,7 +21,7 @@ with socket(AF_INET, SOCK_DGRAM) as sock:
     while True:
         ret=None
         while ret==None:
-            ret = lowerLayer.receive()
+            ret = lowerLayer.receiveResistor()
             
         print("router got: "+ret)
         dstIP = ret[0]
