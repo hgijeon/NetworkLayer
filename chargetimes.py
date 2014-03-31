@@ -4,6 +4,8 @@ import morse
 
 G.setmode(G.BOARD)
 
+G.setwarnings(False)
+
 def chargetime(s = .01):
 
     ct = 0
