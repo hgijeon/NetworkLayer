@@ -5,10 +5,11 @@ class CN_Echo_Client(object):
     """ Computer Networks Chapter 4: Sockets.  UDP Client example. """ 
     
     
-    def __init__(self,Server_Address=(socketLib.findByDomain("T1"),80)):
-        myAddress = (socketLib.findByDomain("T1"),84)
+    def __init__(self,Server_Address=(socketLib.findByDomain("T3"),80)):
+        myAddress = (socketLib.findByDomain("T3"),84)
 
-        socket, AF_INET, SOCK_DGRAM = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM
+        socket, AF_INET, SOCK_DGRAM, timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
+        
 
         self.Server_Address = Server_Address
 
