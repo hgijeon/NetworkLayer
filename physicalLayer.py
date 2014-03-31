@@ -6,9 +6,12 @@ from time import sleep, time
 startSeq = '-.-.-'
 stopSeq = '.-.-.'
 
-sendRate = 0.05
-receiveRate = 0.000000001
-calculatedUnitTime = None
+sendRate = 0.04
+receiveRate = 0
+
+offsetTime = [0, 0]
+
+
 
 class PhysicalLayer:
     def __init__(self):
@@ -31,19 +34,21 @@ class PhysicalLayer:
         on = chargetimes.getLedResistor(receiveRate)
         return self.addOne(on, time())
 
+    def addOffset(self, tup):
+        tup[1] += offsetTime[int(tup[0])]
+        return tup
+
     def addOne(self, on, timestamp):
-        
         tup = self.noiseFilter.add(on, timestamp)
         if tup != None:
+            tup = self.addOffset(tup)
             #print(tup)
             if self.idle:
-                newLenOfDot = self.startChecker.addTup(tup)
-                if newLenOfDot != None:
-                    self.noiseFilter.dotTime = newLenOfDot
-                    if self.startChecker.isStarted():
-                        print("start!!")
-                        self.startChecker.reset()
-                        self.idle = False
+                self.startChecker.addTup(tup)
+                if self.startChecker.isStarted():
+                    print("start!!")
+                    self.startChecker.reset()
+                    self.idle = False
             elif not self.idle:
                 self.bitMessage.append(self.analysis(tup))
 
@@ -53,6 +58,10 @@ class PhysicalLayer:
                     #print(self.bitMessage)
                     #print(morse.bitData2morse(self.bitMessage))
                     #print("Received Message: "+morse.morse2an(morse.bitData2morse(self.bitMessage)))
+
+
+                    #resetTimes()
+
                     self.log.append(self.bitMessage)
                     self.bitMessage=[]
                     self.idle = True
@@ -60,7 +69,7 @@ class PhysicalLayer:
 
                     
     def analysis(self, tup):
-        return [tup[0], int(0.5 + tup[1]/self.noiseFilter.dotTime)]
+        return [tup[0], int(0.5 + tup[1]/sendRate)]
 
     
     def bit2led(self, bitList, unitTime):
@@ -135,24 +144,22 @@ class PhysicalLayer:
             
         def reset(self):
             self.index = 0
-            self.dic = {1:[], 3:[]}
+            self.dic = [[],[],[],[]]
         
         def addTup(self, valCount):
-            if self.index == 0:
-                if(valCount[0] == True):
-                    self.dic[self.match[0][1]].append(valCount[1])
-                    self.index += 1
-                    return self.lenOfDot()
-            else:
                 if valCount[0] == self.match[self.index][0]:
-                    roundLen = int((valCount[1]/self.lenOfDot()) + 0.5)
+                    roundLen = int((valCount[1]/sendRate) + 0.5)
                     if roundLen == self.match[self.index][1]:
-                        self.dic[roundLen].append(valCount[1])
+                        self.dic[roundLen*int(valCount[0])].append(valCount[1])
                         self.index += 1
-                        return self.lenOfDot()      #return lenOfDot
+
+                        if self.index >= len(self.match):
+                            self.setTimes()
+                        return
                 self.reset()
-                        
-        def lenOfDot(self):
-            tmp = self.dic[1] + [e / 3 for e in self.dic[3]]
-            return sum(tmp) / len(tmp)
+
+        def setTimes(self):
+            global offsetTime
+            offsetTime[0] += sendRate - sum(self.dic[0])/len(self.dic[0])
+            offsetTime[1] += sendRate - sum(self.dic[1])/len(self.dic[1])
         
