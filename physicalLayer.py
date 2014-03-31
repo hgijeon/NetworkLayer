@@ -1,14 +1,14 @@
 import ledOnOff
 import morse
 import chargetimes
-from time import sleep
+from time import sleep, time
 
 startSeq = '-.-.-'
 stopSeq = '.-.-.'
 
-sendRate = 0.1
-receiveRate = 0.01
-
+sendRate = 0.05
+receiveRate = 0.000000001
+calculatedUnitTime = None
 
 class PhysicalLayer:
     def __init__(self):
@@ -25,16 +25,17 @@ class PhysicalLayer:
 
     def receive(self):
         on = chargetimes.getLed(receiveRate)
-        return self.addOne(on)
+        return self.addOne(on, time())
 
     def receiveResistor(self):
         on = chargetimes.getLedResistor(receiveRate)
-        return self.addOne(on)
+        return self.addOne(on, time())
 
-    def addOne(self, on):
+    def addOne(self, on, timestamp):
         
-        tup = self.noiseFilter.add(on)
+        tup = self.noiseFilter.add(on, timestamp)
         if tup != None:
+            #print(tup)
             if self.idle:
                 newLenOfDot = self.startChecker.addTup(tup)
                 if newLenOfDot != None:
@@ -74,29 +75,26 @@ class PhysicalLayer:
         self.bit2led(morse.morse2bit([startSeq]+morse.an2morse(string)+[stopSeq]), unitTime)
     
     class NoiseFilter:
-        def __init__(self, dotTime = None):
-            self.dotTime = dotTime
+        def __init__(self):
             self.queue = [[False,0]]
         
-        def add(self, on):
+        def add(self, on, timestamp):
             if on == self.queue[-1][0]:
-                self.queue[-1][1] += 1
-                if len(self.queue) >= 2 and not self.isNoise(self.queue[-1]):
+                if len(self.queue) >= 2: # and not self.isNoise(timestamp - self.queue[-1][1]):
                     ret = self.queue[0]
-                    self.queue = self.queue[1:]
+                    self.queue = [self.queue[1]]
+                    ret[1]=self.queue[0][1] - ret[1]
                     return ret
             else:
                 if len(self.queue) == 2:    # self.queue[-1] is noise
-                    self.queue[-2][1] += self.queue[-1][1]
                     self.queue.pop()
                 else:
-                    self.queue.append([on,0])
-                self.queue[-1][1] += 1
+                    self.queue.append([on,timestamp])
             
-        def isNoise(self, valCount):
-            if self.dotTime == None:
-                return valCount[1] < 2
-            return int(0.75 + valCount[1]/self.dotTime) < 1
+        def isNoise(self, timeDiff):
+            if calculatedUnitTime == None:
+                return timeDiff < sendRate/4
+            return int(0.75 + timeDiff/calculatedTime) < 1        
 
     class StopChecker:
         def __init__(self):            
