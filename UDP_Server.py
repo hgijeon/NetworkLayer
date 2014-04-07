@@ -1,7 +1,7 @@
 import newSocket as socketLib
 import time
 import datetime
-import Users
+#import Users
 
 class UDP_Server(object):
     
@@ -116,7 +116,7 @@ class UDP_Server(object):
                         ##Nothing changed below
         
                 except timeout: ## Handles timeout with the server.
-                    print (".",end="",flush=True)
+                    print("")
                     continue
                 
                 

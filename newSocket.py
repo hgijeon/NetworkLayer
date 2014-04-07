@@ -52,7 +52,7 @@ class socket:
     
 
     def settimeout(self,time):
-        pass
+        timeAlarm.Timeout(time)
 
     def bind(self,address):
         address = (ipDict[address[0]], portDict[address[1]])

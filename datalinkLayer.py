@@ -5,7 +5,7 @@ import timeAlarm
 class DatalinkLayer:
     def __init__(self):
         self.macAddr = ""
-        self.timeLimit = 0
+        self.timeLimit = 2
         self.lowerLayer = physicalLayer.PhysicalLayer()
 
     def transfer(self, data):
@@ -14,15 +14,15 @@ class DatalinkLayer:
     def receive(self):
         while True:
             with timeAlarm.Timeout(self.timeLimit):
-                try:
-                    while True:
-                        ret = self.lowerLayer.receiveResistor()
-                        if ret != None:
-                            print("datalinkLayer got: "+ret)
-                            if ret[1] == self.macAddr:
+#                try:
+                while True:
+                    ret = self.lowerLayer.receiveResistor()
+                    if ret != None:
+                        print("datalinkLayer got: "+ret)
+                        if ret[1] == self.macAddr:
                                 return ret
-                except timeAlarm.TimeException:
-                    print("timeException")
+#                except timeAlarm.TimeException:
+#                    print("timeException")
 
 
     def setMacAddr(self, macAddr):

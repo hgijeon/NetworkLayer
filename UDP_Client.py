@@ -6,11 +6,13 @@ class UDP_Client(object):
     
     
     def __init__(self,Server_Address=(socketLib.findByDomain("T3"),80)):
+        myAddress = (socketLib.findByDomain("T3"),84)
 
         socket, AF_INET, SOCK_DGRAM, self.timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
 
         self.Server_Address = Server_Address
         with socket(AF_INET,SOCK_DGRAM) as self.sock:
+            self.sock.bind(myAddress)
             self.sock.settimeout(0.4) # .4 second timeout
             
             print ("UDP_Client started for UDP_Server at IP address {} on port {}".format(
@@ -60,21 +62,3 @@ class UDP_Client(object):
         
         def __str__(self):
             return self.message
-
-
-
-    
-
-
-
-               
-    
-                
-                
-                
-            
-
-
-
-            
-        

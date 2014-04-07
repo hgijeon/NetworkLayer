@@ -15,7 +15,7 @@ class Timeout():
         signal.alarm(0)    # disable alarm
  
     def raise_timeout(self, *args):
-        raise timeException()
+        raise TimeException()
 
 class TimeException(Exception):
     pass
