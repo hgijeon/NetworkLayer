@@ -115,8 +115,7 @@ class UDP_Server(object):
                             
                         ##Nothing changed below
         
-                except timeout: ## Handles timeout with the server.
-                    print("")
+                except timeout: ## Handles timeout with the server
                     continue
                 
                 
