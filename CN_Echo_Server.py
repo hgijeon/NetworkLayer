@@ -4,7 +4,7 @@ class CN_Echo_Server(object):
     
 
     
-    def __init__(self,IP=socketLib.findByDomain("T1"),port=80):
+    def __init__(self,IP=socketLib.findByDomain("T3"),port=80):
 
         socket, AF_INET, SOCK_DGRAM, timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
         

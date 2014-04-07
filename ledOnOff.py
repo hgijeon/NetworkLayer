@@ -1,17 +1,16 @@
-from RPi.GPIO import cleanup, setmode, setup, output, BOARD, OUT, setwarnings
+from RPi.GPIO import cleanup, setmode, setup, output, BOARD, OUT, IN, setwarnings
 from time import sleep
 
 setmode(BOARD)
 
 setwarnings(False)
 
-setup(7, OUT)
+setup(7, IN)
 
 def on():
     setup(7, OUT)
     output(7, True)
 def off():
-    output(7, False)
     setup(7, IN)
     
 
