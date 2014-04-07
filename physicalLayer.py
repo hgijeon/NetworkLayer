@@ -7,7 +7,7 @@ startSeq = '-.-.-'
 stopSeq = '.-.-.'
 
 sendRate = 0.04
-receiveRate = 0.00005
+receiveRate = 0.0005
 
 offsetTime = [0, 0]
 
