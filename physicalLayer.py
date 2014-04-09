@@ -46,7 +46,7 @@ class PhysicalLayer:
             if self.idle:
                 self.startChecker.addTup(tup)
                 if self.startChecker.isStarted():
-                    print("start!!")
+                    #print("start!!")
                     self.startChecker.reset()
                     self.idle = False
             elif not self.idle:

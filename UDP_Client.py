@@ -1,11 +1,13 @@
 
-import newSocket as socketLib 
+import newSocket as socketLib
+import physicalLayer
             
 class UDP_Client(object):
     """ Computer Networks Chapter 4: Sockets.  UDP Client example. """ 
     
     
     def __init__(self,Server_Address=(socketLib.findByDomain("T3"),80)):
+        self.lowerLayer = physicalLayer.PhysicalLayer()
         myAddress = (socketLib.findByDomain("T3"),84)
 
         socket, AF_INET, SOCK_DGRAM, self.timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
@@ -13,7 +15,7 @@ class UDP_Client(object):
         self.Server_Address = Server_Address
         with socket(AF_INET,SOCK_DGRAM) as self.sock:
             self.sock.bind(myAddress)
-            self.sock.settimeout(1) # 1 second timeout
+            self.sock.settimeout(2) # 1 second timeout
             
             print ("UDP_Client started for UDP_Server at IP address {} on port {}".format(
                 self.Server_Address[0],self.Server_Address[1]))
@@ -49,10 +51,12 @@ class UDP_Client(object):
                 bytearray_msg, address = self.sock.recvfrom(1024)
                 source_IP, source_port = address
                 print(self.decodeMessage(bytearray_msg.decode("UTF-8")))
+
             
             except self.timeout:
-                break #After timeout, returns client to user for next input
-    
+                if self.lowerLayer.idle:
+                    break #After timeout, returns client to user for next input
+        
     def decodeMessage(self, string):
         return self.Message(string)
     

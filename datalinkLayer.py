@@ -14,15 +14,16 @@ class DatalinkLayer:
     def receive(self):
         while True:
             with timeAlarm.Timeout(self.timeLimit):
-#                try:
-                while True:
-                    ret = self.lowerLayer.receiveResistor()
-                    if ret != None:
-                        print("datalinkLayer got: "+ret)
-                        if ret[1] == self.macAddr:
-                                return ret
-#                except timeAlarm.TimeException:
-#                    print("timeException")
+                try:
+                    while True:
+                        ret = self.lowerLayer.receiveResistor()
+                        if ret != None:
+                            print("datalinkLayer got: "+ret)
+                            if ret[1] == self.macAddr:
+                                    return ret
+                except timeAlarm.TimeException:
+                    if self.lowerLayer.idle:
+                        raise
 
 
     def setMacAddr(self, macAddr):

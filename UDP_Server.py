@@ -101,6 +101,7 @@ class UDP_Server(object):
                                 MsgList+=str_message #Adds latest message to the list of all messages sinse server startup
                             
                                 for i in range(Times[LastMsg]+1,Times[st]+1): #Transmitts all messages from last message index to current message index.
+                                    print (MsgList[i])
                                     bytearray_message = bytearray(MsgList[i],encoding="UTF-8") #Back-Translate into UTF-8
                                     bytes_sent = sock.sendto(bytearray_message, address) #Transmit message
 
@@ -118,10 +119,3 @@ class UDP_Server(object):
                 except timeout: ## Handles timeout with the server
                     continue
                 
-                
-            
-
-
-
-            
-        
