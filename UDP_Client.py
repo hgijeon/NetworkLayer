@@ -1,6 +1,7 @@
 
 import newSocket as socketLib
 import physicalLayer
+import timeAlarm
             
 class UDP_Client(object):
     """ Computer Networks Chapter 4: Sockets.  UDP Client example. """ 
@@ -8,6 +9,7 @@ class UDP_Client(object):
     
     def __init__(self,Server_Address=(socketLib.findByDomain("T3"),80)):
         self.lowerLayer = physicalLayer.PhysicalLayer()
+        self.timeLimit=4
         myAddress = (socketLib.findByDomain("T3"),84)
 
         socket, AF_INET, SOCK_DGRAM, self.timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
@@ -46,17 +48,23 @@ class UDP_Client(object):
     
     def receiveMessage(self):
         while True:
-            try:
-                #Attempts to recieve the return message from the server
-                bytearray_msg, address = self.sock.recvfrom(1024)
-                source_IP, source_port = address
-                print(self.decodeMessage(bytearray_msg.decode("UTF-8")))
+            with timeAlarm.Timeout(self.timeLimit):
+                try:
+                    #Attempts to recieve the return message from the server
+                    bytearray_msg, address = self.sock.recvfrom(1024)
+                    source_IP, source_port = address
+                    print(self.decodeMessage(bytearray_msg.decode("UTF-8")))
 
-            
+                
+                except timeAlarm.TimeException:
+                    if self.lowerLayer.idle:
+                        break
+                """
             except self.timeout:
                 if self.lowerLayer.idle:
                     break #After timeout, returns client to user for next input
-        
+               """
+
     def decodeMessage(self, string):
         return self.Message(string)
     
