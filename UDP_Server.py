@@ -5,7 +5,7 @@ import datetime
 
 class UDP_Server(object):
     
-    def __init__(self,IP=socketLib.findByDomain("T3"),port=80):
+    def __init__(self,IP=socketLib.findByDomain("T2"),port=80):
         while True:
             self.run_the_chat(IP,port)
 

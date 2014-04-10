@@ -4,13 +4,14 @@ import physicalLayer
 import timeAlarm
             
 class UDP_Client(object):
-    """ Computer Networks Chapter 4: Sockets.  UDP Client example. """ 
+    """UDP Client""" 
+    #This worked fine when communicating within a PI (have both server and client running on the same pi)
+    #04/10/2014 12:54AM - Not sure why it got buggy when we were using two PIs - may need to test this again 
     
-    
-    def __init__(self,Server_Address=(socketLib.findByDomain("T3"),80)):
+    def __init__(self,Server_Address=(socketLib.findByDomain("T2"),80)):
         self.lowerLayer = physicalLayer.PhysicalLayer()
         self.timeLimit=4
-        myAddress = (socketLib.findByDomain("T3"),84)
+        myAddress = (socketLib.findByDomain("T2"),84)
 
         socket, AF_INET, SOCK_DGRAM, self.timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
 
