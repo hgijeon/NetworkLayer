@@ -42,7 +42,7 @@ class UDP_Client(object):
                 self.notRecieved=True
                 self.receiveMessage()
                 while self.notRecieved:
-                    time.sleep(random.randint(5))
+                    time.sleep(random.randint(0,5))
                     self.sendStrMessage(str_message)
                     self.receiveMessage()
 
