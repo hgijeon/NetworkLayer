@@ -2,6 +2,8 @@
 import newSocket as socketLib
 import physicalLayer
 import timeAlarm
+import time
+import random
             
 class UDP_Client(object):
     """UDP Client""" 
@@ -37,7 +39,12 @@ class UDP_Client(object):
                     break
 
                 self.sendStrMessage(str_message)
+                self.notRecieved=True
                 self.receiveMessage()
+                while self.notRecieved:
+                    time.sleep(random.randint(5))
+                    self.sendStrMessage(str_message)
+                    self.receiveMessage()
 
         print("UDP_Client ended")
         
@@ -55,7 +62,7 @@ class UDP_Client(object):
                     bytearray_msg, address = self.sock.recvfrom(1024)
                     source_IP, source_port = address
                     print(self.decodeMessage(bytearray_msg.decode("UTF-8")))
-
+                    self.notRecieved=False
                 
                 except timeAlarm.TimeException:
                     if self.lowerLayer.idle:
