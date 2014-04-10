@@ -23,7 +23,15 @@ class PhysicalLayer:
         self.log = []
 
     def transfer(self, data):
-        sleep(0.3)
+        start=time()
+        now = time()
+        while now-start < 1:
+            on = chargetimes.getLedResistor(receiveRate)
+            if on:
+                start=time()
+            else:
+                now = time()
+                
         self.an2led(data, sendRate)
 
     def receive(self):
@@ -70,6 +78,9 @@ class PhysicalLayer:
                         return morse.morse2an(morse.bitData2morse(self.log[-1]))
                     except:
                         return None
+                        print(self.bitMessage)
+                        print(morse.bitData2morse(self.bitMessage))
+                        print("Received Message: "+morse.morse2an(morse.bitData2morse(self.bitMessage)))
 
                     
     def analysis(self, tup):

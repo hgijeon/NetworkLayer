@@ -40,11 +40,13 @@ class UDP_Client(object):
 
                 self.sendStrMessage(str_message)
                 self.notRecieved=True
+                i=1
                 self.receiveMessage()
                 while self.notRecieved:
-                    time.sleep(random.randint(0,5))
+                    time.sleep(random.randint(0,5+i))
                     self.sendStrMessage(str_message)
                     self.receiveMessage()
+                    i+=2
 
         print("UDP_Client ended")
         
