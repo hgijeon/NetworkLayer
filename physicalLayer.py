@@ -25,7 +25,7 @@ class PhysicalLayer:
     def transfer(self, data):
         start=time()
         now = time()
-        while now-start < 1:
+        while now-start < 0.5:
             on = chargetimes.getLedResistor(receiveRate)
             if on:
                 start=time()
