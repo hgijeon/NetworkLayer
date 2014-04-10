@@ -47,7 +47,6 @@ class CN_Echo_Client(object):
                         if address_received != self.Server_Address:
                             print( "\n message from {} ignored".format(address_received))
                     except timeout:
-                        print (".",end="",flush=True)
                         continue
                 str_message_received = bytearray_message_received.decode("UTF-8")
                 print ("\n{} bytes received".format(len(bytearray_message_received)))

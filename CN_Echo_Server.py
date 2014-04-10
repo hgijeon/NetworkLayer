@@ -27,7 +27,6 @@ class CN_Echo_Server(object):
         
 
                 except timeout:
-                    print (".",end = "",flush=True)
                     continue
                 
 if __name__ == '__main__':

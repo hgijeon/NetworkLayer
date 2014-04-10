@@ -5,13 +5,11 @@ import morse
 G.setmode(G.BOARD)
 
 G.setwarnings(False)
-
+G.setup(12, G.IN)
+    
 def chargetime(s = .01):
 
     ct = 0
-
-    G.setup(12, G.OUT)
-    G.output(12, G.LOW)
     sleep(s)
     G.setup(12, G.IN)
 
@@ -21,10 +19,7 @@ def chargetime(s = .01):
     return ct
 
 def chargetimeResistor(s=.1):
-    G.setup(12, G.OUT)
-    G.output(12, G.LOW)
     sleep(s)
-    G.setup(12, G.IN)
     return G.input(12)
 
 def chargetimes(n = 100, s = .1):
