@@ -52,8 +52,11 @@ class DatalinkLayer:
             if time.time() - startTime > self.timeLimit:
                 if self.lowerLayer.idle:
                     raise timeAlarm.TimeException()
-                    n=len(self.lowerLayer.log)
-                    break
+
+#this is for the second chance (if physical layer is getting something.)
+        """
+                n=len(self.lowerLayer.log)
+                break
 
 		#one more chance
         startTime = time.time()
@@ -64,12 +67,13 @@ class DatalinkLayer:
             time.sleep(0.2)
             if len(self.lowerLayer) > n:
                 raise timeAlarm.Timeout()
+        """
 
     def receiveTh(self):
         while self.re:
             ret = self.lowerLayer.receiveResistor()
             if ret != None:
-                print("datalinkLayer got: "+ret)
+                #print("datalinkLayer got: "+ret)
                 if ret[1] == self.macAddr:
                         self.receiveQueue.append(ret)
 

@@ -62,7 +62,7 @@ class PhysicalLayer:
 
                 if self.stopChecker.isStop(self.bitMessage):
                     self.stopChecker.removeStopSeq(self.bitMessage)
-                    print("stop!!")
+                    #print("stop!!")
                     #print(self.bitMessage)
                     #print(morse.bitData2morse(self.bitMessage))
                     #print("Received Message: "+morse.morse2an(morse.bitData2morse(self.bitMessage)))
@@ -77,10 +77,8 @@ class PhysicalLayer:
                     try:
                         return morse.morse2an(morse.bitData2morse(self.log[-1]))
                     except:
+                        print("got strange morse code")
                         return None
-                        print(self.bitMessage)
-                        print(morse.bitData2morse(self.bitMessage))
-                        print("Received Message: "+morse.morse2an(morse.bitData2morse(self.bitMessage)))
 
                     
     def analysis(self, tup):

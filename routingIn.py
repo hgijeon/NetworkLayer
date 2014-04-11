@@ -17,7 +17,7 @@ lowerLayer = physicalLayer.PhysicalLayer()
 socket, AF_INET, SOCK_DGRAM, timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
 
 with socket(AF_INET, SOCK_DGRAM) as sock:
-    sock.bind(("127.0.0.1", routerDict["T"][1]))
+    sock.bind(routerDict["T"])
 
     while True:
         try:
