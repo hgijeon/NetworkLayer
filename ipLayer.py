@@ -6,10 +6,15 @@ class IpLayer:
 
     def transfer(self, data):
         self.lowerLayer.transfer(data)
-        
 
     def receive(self):
         return self.lowerLayer.receive()
 
     def setMacAddr(self, macAddr):
         self.lowerLayer.setMacAddr(macAddr)
+
+    def settimeout(self, time):
+        self.lowerLayer.settimeout(time)
+
+    def cleanUp(self):
+        self.lowerLayer.cleanUp()

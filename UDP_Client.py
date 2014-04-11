@@ -13,7 +13,7 @@ class UDP_Client(object):
     def __init__(self,Server_Address=(socketLib.findByDomain("T2"),80)):
         self.lowerLayer = physicalLayer.PhysicalLayer()
         self.timeLimit=4
-        myAddress = (socketLib.findByDomain("T3"),84)
+        myAddress = (socketLib.findByDomain("T2"),84)
 
         socket, AF_INET, SOCK_DGRAM, self.timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
 
@@ -39,16 +39,7 @@ class UDP_Client(object):
                     break
 
                 self.sendStrMessage(str_message)
-                self.notRecieved=True
-                i=1
                 self.receiveMessage()
-                '''
-                while self.notRecieved:
-                    time.sleep(random.randint(0,5+i))
-                    self.sendStrMessage(str_message)
-                    self.receiveMessage()
-                    i+=2
-                    '''
 
         print("UDP_Client ended")
         
@@ -60,22 +51,15 @@ class UDP_Client(object):
     
     def receiveMessage(self):
         while True:
-            with timeAlarm.Timeout(self.timeLimit):
-                try:
-                    #Attempts to recieve the return message from the server
-                    bytearray_msg, address = self.sock.recvfrom(1024)
-                    source_IP, source_port = address
-                    print(self.decodeMessage(bytearray_msg.decode("UTF-8")))
-                    self.notRecieved=False
-                
-                except timeAlarm.TimeException:
-                    if self.lowerLayer.idle:
-                        break
-                """
+            try:
+                #Attempts to recieve the return message from the server
+                bytearray_msg, address = self.sock.recvfrom(1024)
+                source_IP, source_port = address
+                print(self.decodeMessage(bytearray_msg.decode("UTF-8")))
+                self.notRecieved=False
+
             except self.timeout:
-                if self.lowerLayer.idle:
-                    break #After timeout, returns client to user for next input
-               """
+                break #After timeout, returns client to user for next input
 
     def decodeMessage(self, string):
         return self.Message(string)

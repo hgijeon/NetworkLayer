@@ -39,6 +39,7 @@ class socket:
     def __enter__(self):
         return self
     def __exit__(self, type, value, tb):
+        self.lowerLayer.cleanUp()
         pass
         
     def __init__(self,family,type):
@@ -52,7 +53,7 @@ class socket:
     
 
     def settimeout(self,time):
-        timeAlarm.Timeout(time)
+        self.lowerLayer.settimeout(time)
 
     def bind(self,address):
         address = (ipDict[address[0]], portDict[address[1]])
