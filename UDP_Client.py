@@ -13,7 +13,7 @@ class UDP_Client(object):
     def __init__(self,Server_Address=(socketLib.findByDomain("T2"),80)):
         self.lowerLayer = physicalLayer.PhysicalLayer()
         self.timeLimit=4
-        myAddress = (socketLib.findByDomain("T2"),84)
+        myAddress = (socketLib.findByDomain("T3"),84)
 
         socket, AF_INET, SOCK_DGRAM, self.timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
 
@@ -42,11 +42,13 @@ class UDP_Client(object):
                 self.notRecieved=True
                 i=1
                 self.receiveMessage()
+                '''
                 while self.notRecieved:
                     time.sleep(random.randint(0,5+i))
                     self.sendStrMessage(str_message)
                     self.receiveMessage()
                     i+=2
+                    '''
 
         print("UDP_Client ended")
         
