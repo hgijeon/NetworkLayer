@@ -70,3 +70,8 @@ class UDP_Client(object):
         
         def __str__(self):
             return self.message
+
+if __name__ == "__main__":
+    print("udp client will start in 3 sec...")
+    time.sleep(3)
+    UDP_Client()

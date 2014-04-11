@@ -18,6 +18,7 @@ socket, AF_INET, SOCK_DGRAM, timeout = socketLib.socket, socketLib.AF_INET, sock
 
 with socket(AF_INET, SOCK_DGRAM) as sock:
     sock.bind(routerDict["T"])
+    print("'routing in' is now running....")
 
     while True:
         try:

@@ -14,7 +14,7 @@ socket, AF_INET, SOCK_DGRAM, timeout = socketLib.socket, socketLib.AF_INET, sock
 
 def sendMsg(msg):
     with socket(AF_INET, SOCK_DGRAM) as sock:
-        sock.sendto(bytearray(msg.upper(),"UTF-8"), ("127.0.0.1", routerDict[lanIP][1]))
+        sock.sendto(bytearray(msg.upper(),"UTF-8"), routerDict[lanIP])
 
 if __name__ == "__main__":
     sendMsg("T3EEE04BAHI")

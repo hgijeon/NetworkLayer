@@ -117,4 +117,9 @@ class UDP_Server(object):
         
                 except timeout: ## Handles timeout with the server
                     continue
-                
+               
+if __name__ == "__main__":
+    print("udp server will start in 3 seconds")
+    time.sleep(3)
+    UDP_Server()
+

@@ -17,7 +17,7 @@ lowerLayer = physicalLayer.PhysicalLayer()
 socket, AF_INET, SOCK_DGRAM, timeout = socketLib.socket, socketLib.AF_INET, socketLib.SOCK_DGRAM, socketLib.timeout
 
 with socket(AF_INET, SOCK_DGRAM) as sock:
-    
+    print("'routing out' is now running........")
     while True:
         ret=None
         while ret==None:
