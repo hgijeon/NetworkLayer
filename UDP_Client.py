@@ -57,8 +57,8 @@ class UDP_Client(object):
                 source_IP, source_port = address
                 print(self.decodeMessage(bytearray_msg.decode("UTF-8")))
 
-            except self.timeout:
-                print("receiveMessage() got timeout")
+            except Exception as e:
+                print("receiveMessage() got ",e)
                 break #After timeout, returns client to user for next input
 
     def decodeMessage(self, string):

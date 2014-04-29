@@ -1,3 +1,4 @@
+import queue as q
 import physicalLayer
 import timeAlarm
 import time
@@ -8,8 +9,8 @@ class DatalinkLayer:
     def __init__(self):
         self.macAddr = ""
         self.timeLimit = 1000000
-        self.receiveQueue = []
-        self.transferQueue = []
+        self.receiveQueue = q.Queue()
+        self.transferQueue = q.Queue()
         self.lowerLayer = physicalLayer.PhysicalLayer()
 
         
@@ -34,24 +35,28 @@ class DatalinkLayer:
 
     def transferTh(self):
         while self.tr:
-            if len(self.transferQueue) > 0:
-                self.lowerLayer.transfer(self.transferQueue.pop(0))
+            if not self.transferQueue.empty():
+                self.lowerLayer.transfer(self.transferQueue.get())
             time.sleep(0.3)
 
     def transfer(self, data):
-        self.transferQueue.append(data)
+        self.transferQueue.put(data)
 
 
     def receive(self):
         startTime = time.time()
 
         while True:
-            if len(self.receiveQueue)>0:
-                return self.receiveQueue.pop(0)
-            time.sleep(0.2)
-            if time.time() - startTime > self.timeLimit:
-                if self.lowerLayer.idle:
-                    raise timeAlarm.TimeException()
+            return self.receiveQueue.get(1,3)
+##            if not self.receiveQueue.empty():
+##                return self.receiveQueue.get()
+##            else:
+##                if self.lowerLayer.idle:
+##                    time.sleep(0.2)
+##                    break
+##                else:
+##                    time.sleep(0.2)
+##                    pass
 
 #this is for the second chance (if physical layer is getting something.)
         """
@@ -75,7 +80,7 @@ class DatalinkLayer:
             if ret != None:
                 #print("datalinkLayer got: "+ret)
                 if ret[1] == self.macAddr:
-                        self.receiveQueue.append(ret)
+                        self.receiveQueue.put(ret)
 
 
     def setMacAddr(self, macAddr):
