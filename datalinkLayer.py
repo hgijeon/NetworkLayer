@@ -40,14 +40,14 @@ class DatalinkLayer:
             time.sleep(0.3)
 
     def transfer(self, data):
+##        print (data)
         self.transferQueue.put(data)
 
 
     def receive(self):
-        startTime = time.time()
-
-        while True:
-            return self.receiveQueue.get(1,3)
+##        startTime = time.time()
+##        while True:
+        return self.receiveQueue.get(1,1)
 ##            if not self.receiveQueue.empty():
 ##                return self.receiveQueue.get()
 ##            else:
@@ -78,9 +78,10 @@ class DatalinkLayer:
         while self.re:
             ret = self.lowerLayer.receiveResistor()
             if ret != None:
-                #print("datalinkLayer got: "+ret)
+##                print("datalinkLayer got: "+ret)
                 if ret[1] == self.macAddr:
                         self.receiveQueue.put(ret)
+##                        print (ret)
 
 
     def setMacAddr(self, macAddr):
@@ -89,3 +90,6 @@ class DatalinkLayer:
 
     def settimeout(self, limit):
         self.timeLimit = limit
+
+
+   
