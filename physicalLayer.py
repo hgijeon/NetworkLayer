@@ -6,7 +6,7 @@ from time import sleep, time
 startSeq = '-.-.-'
 stopSeq = '.-.-.'
 
-sendRate = 0.04
+sendRate = 0.03
 receiveRate = 0.0005
 
 offsetTime = [0, 0]
