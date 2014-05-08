@@ -1,8 +1,7 @@
 NetworkLayer
 ============
 
-NetworkLayer contains code for chat server and client. The hope is to create one that communicates, through a router,
-with from one LAN to other LANs.
+NetworkLayer contains code for chat server and client. The hope is to create one that communicates, through a router, from one LAN to other LANs.
 
 How it Works
 ============
